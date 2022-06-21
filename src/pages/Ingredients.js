@@ -1,20 +1,22 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import RecipesContext from '../context/Context';
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
-function FavoriteRecipes() {
+function Ingredients() {
   const { setTitle, setIconShow } = useContext(RecipesContext);
   useEffect(() => {
-    setTitle({ title: 'Favorite Recipes' });
+    setTitle({ title: 'Explore Ingredients' });
     setIconShow({ iconShow: false });
   }, []);
   return (
     <section className="">
       <Header />
+      <Footer />
     </section>
   );
 }
 
-export default FavoriteRecipes;
+export default Ingredients;
