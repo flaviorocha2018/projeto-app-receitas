@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import RecipesContext from '../context/Context';
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -14,6 +14,7 @@ function Drinks() {
   const [selectDrinksRestore, setSelectDrinksRestore] = useState([]);
   const [catDrinks, setCatDrinks] = useState([]);
   const [categorySel, setCategorySel] = useState('');
+  const history = useHistory();
 
   useEffect(() => {
     setTitle({ title: 'Drinks' });
@@ -29,9 +30,15 @@ function Drinks() {
     apiDrinks();
   }, []);
 
+  const redirectToDetails = () => {
+    const drinkID = allDrinks[0].idDrink;
+    history.push(`/drinks/${drinkID}`);
+  };
+
   useEffect(() => {
     const LIMIT = 12;
-    setSelectDrinks(allDrinks.slice(0, LIMIT));
+    if (allDrinks.length === 1) redirectToDetails();
+    else setSelectDrinks(allDrinks.slice(0, LIMIT));
   }, [allDrinks]);
 
   const selectCategorys = async ({ target }) => {

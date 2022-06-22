@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import RecipesContext from '../context/Context';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -14,6 +14,7 @@ function Foods() {
   const [selectMealsRestore, setSelectMealsRestore] = useState([]);
   const [catMeals, setCatMeals] = useState([]);
   const [categorySelected, setCategorySelected] = useState('');
+  const history = useHistory();
 
   useEffect(() => {
     setTitle({ title: 'Foods' });
@@ -29,9 +30,15 @@ function Foods() {
     apiMeals();
   }, []);
 
+  const redirectToDetails = () => {
+    const mealID = allMeals[0].idMeal;
+    history.push(`/foods/${mealID}`);
+  };
+
   useEffect(() => {
     const LIMIT = 12;
-    setSelectMeals(allMeals.slice(0, LIMIT));
+    if (allMeals.length === 1) redirectToDetails();
+    else setSelectMeals(allMeals.slice(0, LIMIT));
   }, [allMeals]);
 
   const selectCategorys = async ({ target }) => {

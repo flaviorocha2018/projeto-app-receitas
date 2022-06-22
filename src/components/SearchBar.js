@@ -2,12 +2,22 @@ import React, { useContext } from 'react';
 import RecipesContext from '../context/Context';
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {
+  filterMeals,
+  searchMeals,
+  filterDrinks,
+  searchDrinks,
+} from '../services/functions';
 
 function SearchBar() {
   const {
     searchInput,
     setSearchInput,
+    searchParam,
     setSearchParam,
+    title,
+    setAllMeals,
+    setAllDrinks,
   } = useContext(RecipesContext);
 
   const handleSearch = ({ target }) => {
@@ -16,6 +26,57 @@ function SearchBar() {
 
   const handleSearchParam = ({ target }) => {
     setSearchParam({ searchParam: target.value });
+  };
+
+  const handleFoodsSearchResults = (input) => {
+    const alertMessage = 'Sorry, we haven\'t found any recipes for these filters.';
+    if (input === null || input === undefined) global.alert(alertMessage);
+    else setAllMeals(input);
+  };
+
+  const handleFoodsSearch = async () => {
+    if (searchParam.searchParam === 'Ingredient') {
+      const resultAPI = await filterMeals(searchInput.searchInput);
+      handleFoodsSearchResults(resultAPI);
+    }
+    if (searchParam.searchParam === 'Name') {
+      const resultAPI = await searchMeals('s', searchInput.searchInput);
+      handleFoodsSearchResults(resultAPI);
+    }
+    if (searchParam.searchParam === 'First') {
+      if (searchInput.searchInput.length === 1) {
+        const resultAPI = await searchMeals('f', searchInput.searchInput);
+        handleFoodsSearchResults(resultAPI);
+      } else global.alert('Your search must have only 1 (one) character');
+    }
+  };
+
+  const handleDrinksSearchResults = (input) => {
+    const alertMessage = 'Sorry, we haven\'t found any recipes for these filters.';
+    if (input === null || input === undefined) global.alert(alertMessage);
+    else setAllDrinks(input);
+  };
+
+  const handleDrinksSearch = async () => {
+    if (searchParam.searchParam === 'Ingredient') {
+      const resultAPI = await filterDrinks(searchInput.searchInput);
+      handleDrinksSearchResults(resultAPI);
+    }
+    if (searchParam.searchParam === 'Name') {
+      const resultAPI = await searchDrinks('s', searchInput.searchInput);
+      handleDrinksSearchResults(resultAPI);
+    }
+    if (searchParam.searchParam === 'First') {
+      if (searchInput.searchInput.length === 1) {
+        const resultAPI = await searchDrinks('f', searchInput.searchInput);
+        handleDrinksSearchResults(resultAPI);
+      } else global.alert('Your search must have only 1 (one) character');
+    }
+  };
+
+  const handleSearchBtn = () => {
+    if (title.title === 'Foods') handleFoodsSearch();
+    else handleDrinksSearch();
   };
 
   return (
@@ -73,6 +134,7 @@ function SearchBar() {
         <button
           type="button"
           data-testid="exec-search-btn"
+          onClick={ handleSearchBtn }
         >
           Search
         </button>
