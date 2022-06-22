@@ -97,3 +97,23 @@ export const searchDrinks = async (type, input) => {
     console.log(e);
   }
 };
+
+export const detailsFoods = async (input) => {
+  try {
+    const data = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${input}`);
+    const result = await data.json();
+    return result.meals;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const detailsDrinks = async (input) => {
+  try {
+    const data = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${input}`);
+    const result = await data.json();
+    return result.drinks;
+  } catch (e) {
+    console.log(e);
+  }
+};
