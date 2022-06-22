@@ -37,7 +37,7 @@ function Foods() {
 
   useEffect(() => {
     const LIMIT = 12;
-    if (allMeals.length === 1) redirectToDetails();
+    if (allMeals.length === 1 && categorySelected.length === 0) redirectToDetails();
     else setSelectMeals(allMeals.slice(0, LIMIT));
   }, [allMeals]);
 

@@ -37,7 +37,7 @@ function Drinks() {
 
   useEffect(() => {
     const LIMIT = 12;
-    if (allDrinks.length === 1) redirectToDetails();
+    if (allDrinks.length === 1 && categorySel.length === 0) redirectToDetails();
     else setSelectDrinks(allDrinks.slice(0, LIMIT));
   }, [allDrinks]);
 
@@ -47,7 +47,6 @@ function Drinks() {
       setCategorySel('');
     } else {
       setCategorySel(target.value);
-      // const fixedValue = target.value.replace(/[' ']/g, '_');
       const resultAPI = await getAllCategoryDrinks(target.value);
       setAllDrinks(resultAPI);
     }
