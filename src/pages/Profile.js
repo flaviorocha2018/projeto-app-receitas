@@ -9,7 +9,12 @@ import Footer from '../components/Footer';
 function Profile() {
   const { setTitle, setIconShow } = useContext(RecipesContext);
   const history = useHistory();
-  const userEmail = JSON.parse(localStorage.getItem('user'));
+  const renderEmailUser = () => {
+    if (localStorage.length > 0) {
+      return (JSON.parse(localStorage.getItem('user'))).email;
+    }
+  };
+  const userEmail = renderEmailUser();
 
   useEffect(() => {
     setTitle({ title: 'Profile' });
@@ -24,11 +29,11 @@ function Profile() {
   return (
     <section className="">
       <Header />
-      <h3
+      <p
         data-testid="profile-email"
       >
-        { userEmail.email }
-      </h3>
+        { userEmail }
+      </p>
       <section>
         <button
           type="button"
@@ -52,7 +57,6 @@ function Profile() {
           Logout
         </button>
       </section>
-
       <Footer />
     </section>
   );

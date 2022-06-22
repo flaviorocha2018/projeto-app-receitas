@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import RecipesContext from '../context/Context';
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Login() {
-  const [email, setEmail] = useState({ email: '' });
+  const { email, setEmail } = useContext(RecipesContext);
   const [password, setPassword] = useState({ password: '' });
   const [enterBtn, setEnterBtn] = useState({ enterBtn: true });
   const history = useHistory();
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
-    if (name === 'email') setEmail({ email: value });
+    if (name === 'email') setEmail(value);
     if (name === 'password') setPassword({ password: value });
   };
 
@@ -19,7 +20,7 @@ function Login() {
     const TOKEN_TEST = 1;
     localStorage.setItem('mealsToken', TOKEN_TEST);
     localStorage.setItem('cocktailsToken', TOKEN_TEST);
-    localStorage.setItem('user', JSON.stringify(email));
+    localStorage.setItem('user', JSON.stringify({ email }));
     history.push('/foods');
   };
 
@@ -30,7 +31,7 @@ function Login() {
 
   useEffect(() => {
     const MIN_LENGTH = 6;
-    if (validateEmail(email.email) && password.password.length > MIN_LENGTH) {
+    if (validateEmail(email) && password.password.length > MIN_LENGTH) {
       setEnterBtn({ enterBtn: false });
     } else setEnterBtn({ enterBtn: true });
   }, [email, password]);
@@ -47,7 +48,7 @@ function Login() {
               className="form-control"
               data-testid="email-input"
               name="email"
-              value={ email.email }
+              value={ email }
               onChange={ handleChange }
             />
           </label>
