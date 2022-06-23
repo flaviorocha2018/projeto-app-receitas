@@ -5,6 +5,7 @@ import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { surpriseAPI } from '../services/functions';
 
 function Explore() {
   const { title, setTitle, setIconShow } = useContext(RecipesContext);
@@ -28,8 +29,10 @@ function Explore() {
     history.push('/explore/foods/nationalities');
   };
 
-  const redirectUser = () => {
-
+  const redirectUser = async () => {
+    const result = await surpriseAPI(title.title);
+    const url = title.title === 'Explore Foods' ? 'foods' : 'drinks';
+    history.push(`/${url}/${result}`);
   };
 
   return (

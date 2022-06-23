@@ -7,12 +7,13 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 function ExploreMain() {
-  const { setTitle, setIconShow } = useContext(RecipesContext);
+  const { setTitle, setIconShow, setSearchInput } = useContext(RecipesContext);
   const history = useHistory();
 
   useEffect(() => {
     setTitle({ title: 'Explore' });
     setIconShow({ iconShow: false });
+    setSearchInput({ searchInput: '' });
   }, []);
 
   return (

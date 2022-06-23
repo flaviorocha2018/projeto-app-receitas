@@ -6,23 +6,44 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Cards from '../components/Cards';
-import { getDrinks, getDrinksCat, getAllCategoryDrinks } from '../services/functions';
+import {
+  getDrinks,
+  getDrinksCat,
+  getAllCategoryDrinks,
+  filterDrinks,
+} from '../services/functions';
 
 function Drinks() {
-  const { setTitle, setIconShow, allDrinks, setAllDrinks } = useContext(RecipesContext);
+  const {
+    setTitle,
+    setIconShow,
+    allDrinks,
+    setAllDrinks,
+    searchInput,
+  } = useContext(RecipesContext);
   const [selectDrinks, setSelectDrinks] = useState([]);
   const [selectDrinksRestore, setSelectDrinksRestore] = useState([]);
   const [catDrinks, setCatDrinks] = useState([]);
   const [categorySel, setCategorySel] = useState('');
   const history = useHistory();
 
+  const searchIngredients = async () => {
+    const result = await filterDrinks(searchInput.searchInput);
+    setAllDrinks(result);
+  };
+
+  const getAllDrinks = async () => {
+    const result = await getDrinks();
+    setAllDrinks(result);
+    setSelectDrinksRestore(result);
+  };
+
   useEffect(() => {
     setTitle({ title: 'Drinks' });
     setIconShow({ iconShow: true });
     async function apiDrinks() {
-      const resultAPI = await getDrinks();
-      setAllDrinks(resultAPI);
-      setSelectDrinksRestore(resultAPI);
+      if (searchInput.searchInput !== '') searchIngredients();
+      else getAllDrinks();
       const LIMIT = 5;
       const resultCatDrinks = await getDrinksCat();
       setCatDrinks(resultCatDrinks.slice(0, LIMIT));

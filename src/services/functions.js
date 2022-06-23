@@ -117,3 +117,48 @@ export const detailsDrinks = async (input) => {
     console.log(e);
   }
 };
+
+export const surpriseAPI = async (input) => {
+  try {
+    const url = input === 'Explore Foods' ? 'themealdb' : 'thecocktaildb';
+    const data = await fetch(`https://www.${url}.com/api/json/v1/1/random.php`);
+    const result = await data.json();
+    return input === 'Explore Foods' ? result.meals[0].idMeal : result.drinks[0].idDrink;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const getIngredientsFoods = async () => {
+  try {
+    const LIMIT = 12;
+    const data = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
+    const result = await data.json();
+    const limitedResults = result.meals.slice(0, LIMIT);
+    return limitedResults;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const getIngredientsDrinks = async () => {
+  try {
+    const LIMIT = 12;
+    const data = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
+    const result = await data.json();
+    const limitedResults = result.drinks.slice(0, LIMIT);
+    return limitedResults;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const getNation = async () => {
+  try {
+    const data = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
+    const result = await data.json();
+    return result.meals;
+  } catch (e) {
+    console.log(e);
+  }
+};
