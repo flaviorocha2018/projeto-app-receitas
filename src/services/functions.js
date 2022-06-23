@@ -162,3 +162,13 @@ export const getNation = async () => {
     console.log(e);
   }
 };
+
+export const getNationsFoods = async (input) => {
+  try {
+    const data = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${input}`);
+    const result = await data.json();
+    return result.meals;
+  } catch (e) {
+    console.log(e);
+  }
+};
