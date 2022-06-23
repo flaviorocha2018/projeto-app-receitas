@@ -1,27 +1,49 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import RecipesContext from '../context/Context';
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Cards from '../components/Cards';
-import { getDrinks, getDrinksCat, getAllCategoryDrinks } from '../services/functions';
+import {
+  getDrinks,
+  getDrinksCat,
+  getAllCategoryDrinks,
+  filterDrinks,
+} from '../services/functions';
 
 function Drinks() {
-  const { setTitle, setIconShow, allDrinks, setAllDrinks } = useContext(RecipesContext);
+  const {
+    setTitle,
+    setIconShow,
+    allDrinks,
+    setAllDrinks,
+    searchInput,
+  } = useContext(RecipesContext);
   const [selectDrinks, setSelectDrinks] = useState([]);
   const [selectDrinksRestore, setSelectDrinksRestore] = useState([]);
   const [catDrinks, setCatDrinks] = useState([]);
   const [categorySel, setCategorySel] = useState('');
+  const history = useHistory();
+
+  const searchIngredients = async () => {
+    const result = await filterDrinks(searchInput.searchInput);
+    setAllDrinks(result);
+  };
+
+  const getAllDrinks = async () => {
+    const result = await getDrinks();
+    setAllDrinks(result);
+    setSelectDrinksRestore(result);
+  };
 
   useEffect(() => {
     setTitle({ title: 'Drinks' });
     setIconShow({ iconShow: true });
     async function apiDrinks() {
-      const resultAPI = await getDrinks();
-      setAllDrinks(resultAPI);
-      setSelectDrinksRestore(resultAPI);
+      if (searchInput.searchInput !== '') searchIngredients();
+      else getAllDrinks();
       const LIMIT = 5;
       const resultCatDrinks = await getDrinksCat();
       setCatDrinks(resultCatDrinks.slice(0, LIMIT));
@@ -29,9 +51,15 @@ function Drinks() {
     apiDrinks();
   }, []);
 
+  const redirectToDetails = () => {
+    const drinkID = allDrinks[0].idDrink;
+    history.push(`/drinks/${drinkID}`);
+  };
+
   useEffect(() => {
     const LIMIT = 12;
-    setSelectDrinks(allDrinks.slice(0, LIMIT));
+    if (allDrinks.length === 1 && categorySel.length === 0) redirectToDetails();
+    else setSelectDrinks(allDrinks.slice(0, LIMIT));
   }, [allDrinks]);
 
   const selectCategorys = async ({ target }) => {
@@ -40,7 +68,6 @@ function Drinks() {
       setCategorySel('');
     } else {
       setCategorySel(target.value);
-      // const fixedValue = target.value.replace(/[' ']/g, '_');
       const resultAPI = await getAllCategoryDrinks(target.value);
       setAllDrinks(resultAPI);
     }

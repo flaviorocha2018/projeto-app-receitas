@@ -11,3 +11,20 @@
   position: fixed;
   width: 100%;
 }
+
+.carousel-card {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+}
+
+.card {
+  margin: 10px;
+  width: 160px;
+}
+
+.btn-start-recipe {
+  bottom: 0;
+  left: 0;
+  position: fixed;
+}
