@@ -28,3 +28,7 @@
   left: 0;
   position: fixed;
 }
+
+.done-ingredient {
+  text-decoration: line-through;
+}

@@ -4,6 +4,8 @@ import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { detailsFoods, getDrinks } from '../services/functions';
 import CardsRec from '../components/CardsRec';
+import Share from '../components/Share';
+import Favorite from '../components/Favorite';
 
 function DetailsFoods() {
   const [foodDetails, setFoodDetails] = useState('');
@@ -11,6 +13,13 @@ function DetailsFoods() {
   const [foodMeasures, setFoodMeasures] = useState([]);
   const [videoURL, setVideoURL] = useState('');
   const [recomendationsDrinks, setRecomendationsDrinks] = useState([]);
+  const [startBtn, setStartBtn] = useState(false);
+  const [continueBtn, setContinueBtn] = useState(false);
+  const [checkLocal] = useState(JSON
+    .parse(localStorage.getItem('doneRecipes')) || []);
+  const [checkLocalInProgress] = useState(JSON
+    .parse(localStorage.getItem('inProgressRecipes')) || { cocktails: {}, meals: {} });
+
   const history = useHistory();
 
   const getIngredients = () => {
@@ -21,7 +30,8 @@ function DetailsFoods() {
       }
     });
     const filteredIngredients = Object.values(ingredients)
-      .filter((value) => value !== '');
+      .filter((value) => value !== '')
+      .filter((value) => value !== null);
     setFoodIngredients(filteredIngredients);
   };
 
@@ -39,8 +49,17 @@ function DetailsFoods() {
 
   const fixVideo = (input) => {
     const { strYoutube } = input;
-    const fixedVideoURL = strYoutube.replace(/watch/g, 'embed');
+    const fixedVideoURL = strYoutube.replace(/watch\?v=/g, 'embed/');
     setVideoURL(fixedVideoURL);
+  };
+
+  const isBtnDisabled = () => {
+    setStartBtn(checkLocal.some((item) => item.id === foodDetails.idMeal));
+  };
+
+  const isBtnContinue = () => {
+    const btnCtn = Object.keys(checkLocalInProgress.meals).includes(foodDetails.idMeal);
+    setContinueBtn(btnCtn);
   };
 
   useEffect(() => {
@@ -61,6 +80,8 @@ function DetailsFoods() {
   }, [foodMeasures]);
 
   useEffect(() => {
+    isBtnDisabled();
+    isBtnContinue();
     getIngredients();
     getMeasures();
   }, [foodDetails]);
@@ -79,18 +100,8 @@ function DetailsFoods() {
           { foodDetails.strMeal }
         </h2>
         <div>
-          <button
-            type="button"
-            data-testid="share-btn"
-          >
-            SHARE
-          </button>
-          <button
-            type="button"
-            data-testid="favorite-btn"
-          >
-            FAVORITE
-          </button>
+          <Share />
+          <Favorite />
         </div>
         <h4
           data-testid="recipe-category"
@@ -140,14 +151,17 @@ function DetailsFoods() {
           </Link>
         ))}
       </div>
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-        className="btn-start-recipe"
-        onClick={ () => history.push(`${history.location.pathname}/in-progress`) }
-      >
-        Start Recipe
-      </button>
+      { !startBtn
+        && (
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            className="btn-start-recipe"
+            onClick={ () => history.push(`${history.location.pathname}/in-progress`) }
+          >
+            { continueBtn ? 'Continue Recipe' : 'Start Recipe' }
+          </button>
+        )}
     </section>
   );
 }

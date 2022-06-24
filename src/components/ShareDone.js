@@ -1,22 +1,18 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import shareIcon from '../images/shareIcon.svg';
 
 const copy = require('clipboard-copy');
 
-function Share() {
-  const history = useHistory();
+function ShareDone(props) {
   const [showMsg, setShowMsg] = useState(false);
+  const { index, type, id } = props;
 
   const handleClick = () => {
     setShowMsg(true);
-    if (history.location.pathname.includes('progress')) {
-      const url = history.location.pathname;
-      const newURL = url.substring(0, url.lastIndexOf('/'));
-      copy(`http://localhost:3000${newURL}`);
-    } else copy(`http://localhost:3000${history.location.pathname}`);
+    copy(`http://localhost:3000/${type}/${id}`);
   };
 
   return (
@@ -28,7 +24,7 @@ function Share() {
             type="image"
             src={ shareIcon }
             alt="Share Icon"
-            data-testid="share-btn"
+            data-testid={ `${index}-horizontal-share-btn` }
             onClick={ handleClick }
           />
         )}
@@ -36,4 +32,10 @@ function Share() {
   );
 }
 
-export default Share;
+ShareDone.propTypes = {
+  index: PropTypes.number.isRequired,
+  type: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+};
+
+export default ShareDone;
