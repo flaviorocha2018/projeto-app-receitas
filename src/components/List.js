@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function List(props) {
   const { inProgressRecipe, setInProgressRecipe } = useContext(RecipesContext);
   const [itemDone, setItemDone] = useState(false);
-  const [itemChecked, setItemChecked] = useState(false);
+  const [itemChecked, setItemChecked] = useState(true);
   const [itemsLocal] = useState(JSON
     .parse(localStorage.getItem('inProgressRecipes')) || { cocktails: {}, meals: {} });
   const { name, index, measures, checkAll, type, id } = props;
@@ -17,7 +17,6 @@ function List(props) {
     const itemOnStorage = itemsLocal[types][id];
     if (itemOnStorage && itemOnStorage.includes(name)) {
       setInProgressRecipe(itemsLocal);
-      setItemChecked(true);
       setItemDone(true);
     } else {
       setItemChecked(false);
@@ -26,13 +25,10 @@ function List(props) {
 
   const checkbox = () => {
     setItemChecked(!itemChecked);
-
     setItemDone(!itemDone);
-
     if (inProgressRecipe[types][id]) {
       itemsLocal[types][id] = [...inProgressRecipe[types][id], name];
     } else itemsLocal[types][id] = [name];
-
     localStorage.setItem('inProgressRecipes', JSON.stringify(itemsLocal));
     setInProgressRecipe(itemsLocal);
     checkAll();
@@ -50,7 +46,6 @@ function List(props) {
         value={ name }
         onChange={ checkbox }
         checked={ itemChecked }
-        // itemChecked ? checked : null
       />
       {`${name} - ${measures[index]}`}
     </label>
