@@ -129,6 +129,8 @@ function InProgress() {
               index={ index }
               measures={ measures }
               checkAll={ checkAll }
+              type={ type }
+              id={ details.id }
             />
           ))}
         </div>

@@ -10,6 +10,7 @@ function Provider({ children }) {
   const [searchParam, setSearchParam] = useState({ searchParam: '' });
   const [allMeals, setAllMeals] = useState([]);
   const [allDrinks, setAllDrinks] = useState([]);
+  const [inProgressRecipe, setInProgressRecipe] = useState({ cocktails: {}, meals: {} });
 
   return (
     <RecipesContext.Provider
@@ -28,6 +29,8 @@ function Provider({ children }) {
         setAllMeals,
         allDrinks,
         setAllDrinks,
+        inProgressRecipe,
+        setInProgressRecipe,
       } }
     >
       {children}
