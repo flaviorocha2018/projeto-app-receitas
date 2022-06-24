@@ -15,7 +15,10 @@ function InProgress() {
   const [measures, setMeasures] = useState([]);
   const [counter, setCounter] = useState(0);
   const [btnDisabled, setBtnDisabled] = useState(true);
+  const [checkLocal] = useState(JSON
+    .parse(localStorage.getItem('doneRecipes')) || []);
   const history = useHistory();
+  const newDate = new Date();
 
   const getIngredients = () => {
     const ingredientsIP = {};
@@ -60,6 +63,7 @@ function InProgress() {
       nationality: resultAPI[0].strArea,
       alcoholicOrNot: '',
       image: resultAPI[0].strMealThumb,
+      tags: resultAPI[0].strTags,
     });
   };
 
@@ -74,6 +78,7 @@ function InProgress() {
       nationality: '',
       alcoholicOrNot: resultAPI[0].strAlcoholic,
       image: resultAPI[0].strDrinkThumb,
+      tags: [],
     });
   };
 
@@ -96,6 +101,17 @@ function InProgress() {
   useEffect(() => {
     if (counter !== 0 && counter === ingredients.length) setBtnDisabled(false);
   }, [counter]);
+
+  const saveRecipeDone = () => {
+    const data = newDate.toLocaleDateString().split('-').reverse();
+    const fullDate = data[0];
+    details.doneDate = fullDate;
+    if (checkLocal !== null) {
+      const saveStorage = [details, ...checkLocal];
+      localStorage.setItem('doneRecipes', JSON.stringify(saveStorage));
+    } else localStorage.setItem('doneRecipes', JSON.stringify(details));
+    history.push('/done-recipes');
+  };
 
   return (
     <section className="">
@@ -146,7 +162,7 @@ function InProgress() {
         type="button"
         data-testid="finish-recipe-btn"
         className="finish-recipe-btn"
-        onClick={ () => history.push('/done-recipes') }
+        onClick={ saveRecipeDone }
         disabled={ btnDisabled }
       >
         Finish Recipe
