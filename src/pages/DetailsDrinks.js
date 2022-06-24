@@ -4,6 +4,8 @@ import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { detailsDrinks, getMeals } from '../services/functions';
 import CardsRec from '../components/CardsRec';
+import Share from '../components/Share';
+import Favorite from '../components/Favorite';
 
 function DetailsDrinks() {
   const [drinkDetails, setDrinkDetails] = useState('');
@@ -41,7 +43,6 @@ function DetailsDrinks() {
       const drinkID = (history.location.pathname.replace(/\D/g, ''));
       const resultAPI = await detailsDrinks(drinkID);
       const recomendationsAPI = await getMeals();
-
       setDrinkDetails(resultAPI[0]);
       setRecomendations(recomendationsAPI);
     }
@@ -72,18 +73,8 @@ function DetailsDrinks() {
           { drinkDetails.strDrink }
         </h2>
         <div>
-          <button
-            type="button"
-            data-testid="share-btn"
-          >
-            SHARE
-          </button>
-          <button
-            type="button"
-            data-testid="favorite-btn"
-          >
-            FAVORITE
-          </button>
+          <Share />
+          <Favorite />
         </div>
         <h4
           data-testid="recipe-category"

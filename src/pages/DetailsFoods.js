@@ -4,6 +4,8 @@ import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { detailsFoods, getDrinks } from '../services/functions';
 import CardsRec from '../components/CardsRec';
+import Share from '../components/Share';
+import Favorite from '../components/Favorite';
 
 function DetailsFoods() {
   const [foodDetails, setFoodDetails] = useState('');
@@ -39,7 +41,7 @@ function DetailsFoods() {
 
   const fixVideo = (input) => {
     const { strYoutube } = input;
-    const fixedVideoURL = strYoutube.replace(/watch/g, 'embed');
+    const fixedVideoURL = strYoutube.replace(/watch\?v=/g, 'embed/');
     setVideoURL(fixedVideoURL);
   };
 
@@ -79,18 +81,8 @@ function DetailsFoods() {
           { foodDetails.strMeal }
         </h2>
         <div>
-          <button
-            type="button"
-            data-testid="share-btn"
-          >
-            SHARE
-          </button>
-          <button
-            type="button"
-            data-testid="favorite-btn"
-          >
-            FAVORITE
-          </button>
+          <Share />
+          <Favorite />
         </div>
         <h4
           data-testid="recipe-category"
