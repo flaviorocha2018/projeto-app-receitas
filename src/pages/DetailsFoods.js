@@ -23,7 +23,8 @@ function DetailsFoods() {
       }
     });
     const filteredIngredients = Object.values(ingredients)
-      .filter((value) => value !== '');
+      .filter((value) => value !== '')
+      .filter((value) => value !== null);
     setFoodIngredients(filteredIngredients);
   };
 
