@@ -22,7 +22,8 @@ function DetailsDrinks() {
       }
     });
     const filteredIngredients = Object.values(ingredients)
-      .filter((value) => value !== null);
+      .filter((value) => value !== null)
+      .filter((value) => value !== '');
     setDrinkIngredients(filteredIngredients);
   };
 
