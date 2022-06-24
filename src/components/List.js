@@ -14,9 +14,13 @@ function List(props) {
   const types = type === 'foods' ? 'meals' : 'cocktails';
 
   useEffect(() => {
-    if (itemsLocal[types][id]) {
-      return itemsLocal[types][id].includes(name)
-        ? setItemChecked(true) : setItemChecked(false);
+    const itemOnStorage = itemsLocal[types][id];
+    if (itemOnStorage && itemOnStorage.includes(name)) {
+      setInProgressRecipe(itemsLocal);
+      setItemChecked(true);
+      setItemDone(true);
+    } else {
+      setItemChecked(false);
     }
   }, []);
 
@@ -29,10 +33,8 @@ function List(props) {
       itemsLocal[types][id] = [...inProgressRecipe[types][id], name];
     } else itemsLocal[types][id] = [name];
 
-    setTimeout(() => {
-      localStorage.setItem('inProgressRecipes', JSON.stringify(itemsLocal));
-      setInProgressRecipe(itemsLocal);
-    }, 2);
+    localStorage.setItem('inProgressRecipes', JSON.stringify(itemsLocal));
+    setInProgressRecipe(itemsLocal);
     checkAll();
   };
 
