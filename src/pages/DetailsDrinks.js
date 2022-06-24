@@ -12,6 +12,12 @@ function DetailsDrinks() {
   const [drinkIngredients, setDrinkIngredients] = useState([]);
   const [drinkMeasures, setDrinkMeasures] = useState([]);
   const [recomendations, setRecomendations] = useState([]);
+  const [startBtn, setStartBtn] = useState(false);
+  const [continueBtn, setContinueBtn] = useState(false);
+  const [checkLocal] = useState(JSON
+    .parse(localStorage.getItem('doneRecipes')) || []);
+  const [checkLocalInProgress] = useState(JSON
+    .parse(localStorage.getItem('inProgressRecipes')) || { cocktails: {}, meals: {} });
   const history = useHistory();
 
   const getIngredients = () => {
@@ -39,6 +45,16 @@ function DetailsDrinks() {
     setDrinkMeasures(filteredMeasures);
   };
 
+  const isBtnDisabled = () => {
+    setStartBtn(checkLocal.some((item) => item.id === drinkDetails.idDrink));
+  };
+
+  const isBtnContinue = () => {
+    const btnCtn = Object.keys(checkLocalInProgress.cocktails)
+      .includes(drinkDetails.idDrink);
+    setContinueBtn(btnCtn);
+  };
+
   useEffect(() => {
     async function getAPI() {
       const drinkID = (history.location.pathname.replace(/\D/g, ''));
@@ -56,6 +72,8 @@ function DetailsDrinks() {
   }, [drinkMeasures]);
 
   useEffect(() => {
+    isBtnDisabled();
+    isBtnContinue();
     getIngredients();
     getMeasures();
   }, [drinkDetails]);
@@ -118,14 +136,17 @@ function DetailsDrinks() {
           </Link>
         ))}
       </div>
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-        className="btn-start-recipe"
-        onClick={ () => history.push(`${history.location.pathname}/in-progress`) }
-      >
-        Start Recipe
-      </button>
+      { !startBtn
+        && (
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            className="btn-start-recipe"
+            onClick={ () => history.push(`${history.location.pathname}/in-progress`) }
+          >
+            { continueBtn ? 'Continue Recipe' : 'Start Recipe' }
+          </button>
+        )}
     </section>
   );
 }

@@ -13,6 +13,13 @@ function DetailsFoods() {
   const [foodMeasures, setFoodMeasures] = useState([]);
   const [videoURL, setVideoURL] = useState('');
   const [recomendationsDrinks, setRecomendationsDrinks] = useState([]);
+  const [startBtn, setStartBtn] = useState(false);
+  const [continueBtn, setContinueBtn] = useState(false);
+  const [checkLocal] = useState(JSON
+    .parse(localStorage.getItem('doneRecipes')) || []);
+  const [checkLocalInProgress] = useState(JSON
+    .parse(localStorage.getItem('inProgressRecipes')) || { cocktails: {}, meals: {} });
+
   const history = useHistory();
 
   const getIngredients = () => {
@@ -46,6 +53,15 @@ function DetailsFoods() {
     setVideoURL(fixedVideoURL);
   };
 
+  const isBtnDisabled = () => {
+    setStartBtn(checkLocal.some((item) => item.id === foodDetails.idMeal));
+  };
+
+  const isBtnContinue = () => {
+    const btnCtn = Object.keys(checkLocalInProgress.meals).includes(foodDetails.idMeal);
+    setContinueBtn(btnCtn);
+  };
+
   useEffect(() => {
     async function getAPI() {
       const foodID = (history.location.pathname.replace(/\D/g, ''));
@@ -64,6 +80,8 @@ function DetailsFoods() {
   }, [foodMeasures]);
 
   useEffect(() => {
+    isBtnDisabled();
+    isBtnContinue();
     getIngredients();
     getMeasures();
   }, [foodDetails]);
@@ -133,14 +151,17 @@ function DetailsFoods() {
           </Link>
         ))}
       </div>
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-        className="btn-start-recipe"
-        onClick={ () => history.push(`${history.location.pathname}/in-progress`) }
-      >
-        Start Recipe
-      </button>
+      { !startBtn
+        && (
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            className="btn-start-recipe"
+            onClick={ () => history.push(`${history.location.pathname}/in-progress`) }
+          >
+            { continueBtn ? 'Continue Recipe' : 'Start Recipe' }
+          </button>
+        )}
     </section>
   );
 }

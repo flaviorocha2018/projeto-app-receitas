@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import RecipesContext from '../context/Context';
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { detailsFoods, detailsDrinks } from '../services/functions';
@@ -8,6 +9,7 @@ import Favorite from '../components/Favorite';
 import List from '../components/List';
 
 function InProgress() {
+  const { inProgressRecipe, setInProgressRecipe } = useContext(RecipesContext);
   const [type, setType] = useState('');
   const [details, setDetails] = useState('');
   const [allDetails, setAllDetails] = useState('');
@@ -102,7 +104,15 @@ function InProgress() {
     if (counter !== 0 && counter === ingredients.length) setBtnDisabled(false);
   }, [counter]);
 
+  const deleteFromInProgress = () => {
+    const types = details.type === 'foods' ? 'meals' : 'cocktails';
+    delete inProgressRecipe[types][details.id];
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipe));
+    setInProgressRecipe(inProgressRecipe);
+  };
+
   const saveRecipeDone = () => {
+    deleteFromInProgress();
     const data = newDate.toLocaleDateString().split('-').reverse();
     const fullDate = data[0];
     details.doneDate = fullDate;

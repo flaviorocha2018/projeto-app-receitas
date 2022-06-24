@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import '../App.css';
@@ -6,7 +6,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ShareDone from './ShareDone';
 
 function CardsDone(props) {
+  const [tags, setTags] = useState([]);
   const { index, item } = props;
+
+  useEffect(() => {
+    if (typeof item.tags === 'object') setTags(item.tags);
+    else {
+      const newTags = [];
+      newTags.push(item.tags.split(','));
+      setTags(newTags);
+    }
+  }, []);
+
   return (
     <div
       className="card"
@@ -56,7 +67,7 @@ function CardsDone(props) {
           id={ item.id }
           type={ `${item.type}s` }
         />
-        { item.tags.map((tag) => (
+        { tags.map((tag) => (
           <h6
             key={ tag }
             className=""
@@ -72,17 +83,7 @@ function CardsDone(props) {
 
 CardsDone.propTypes = {
   index: PropTypes.number.isRequired,
-  item: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    category: PropTypes.string.isRequired,
-    doneDate: PropTypes.string.isRequired,
-    tags: PropTypes.string,
-    alcoholicOrNot: PropTypes.string,
-    nationality: PropTypes.string,
-    type: PropTypes.string.isRequired,
-  }).isRequired,
+  item: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default CardsDone;
