@@ -8,15 +8,13 @@ function List(props) {
   const { inProgressRecipe, setInProgressRecipe } = useContext(RecipesContext);
   const [itemDone, setItemDone] = useState(false);
   const [itemChecked, setItemChecked] = useState(false);
-  const [itemsLocal] = useState(JSON.parse(localStorage.getItem('inProgressRecipes'))
-    || inProgressRecipe);
+  const [itemsLocal] = useState(JSON
+    .parse(localStorage.getItem('inProgressRecipes')) || { cocktails: {}, meals: {} });
   const { name, index, measures, checkAll, type, id } = props;
   const types = type === 'foods' ? 'meals' : 'cocktails';
 
   useEffect(() => {
-    console.log(itemsLocal);
     if (itemsLocal[types][id]) {
-      console.log(itemsLocal);
       return itemsLocal[types][id].includes(name)
         ? setItemChecked(true) : setItemChecked(false);
     }
@@ -27,13 +25,14 @@ function List(props) {
 
     setItemDone(!itemDone);
 
-    if (itemsLocal[types][id]) {
-      itemsLocal[types][id] = [...itemsLocal[types][id], name];
+    if (inProgressRecipe[types][id]) {
+      itemsLocal[types][id] = [...inProgressRecipe[types][id], name];
     } else itemsLocal[types][id] = [name];
 
-    setTimeout(() => localStorage
-      .setItem('inProgressRecipes', JSON.stringify(itemsLocal)), 2);
-    setInProgressRecipe(itemsLocal);
+    setTimeout(() => {
+      localStorage.setItem('inProgressRecipes', JSON.stringify(itemsLocal));
+      setInProgressRecipe(itemsLocal);
+    }, 2);
     checkAll();
   };
 
