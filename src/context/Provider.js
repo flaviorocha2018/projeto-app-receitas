@@ -11,6 +11,10 @@ function Provider({ children }) {
   const [allMeals, setAllMeals] = useState([]);
   const [allDrinks, setAllDrinks] = useState([]);
   const [inProgressRecipe, setInProgressRecipe] = useState({ cocktails: {}, meals: {} });
+  const [checkLocal, setCheckLocal] = useState(JSON
+    .parse(localStorage.getItem('favoriteRecipes')) || []);
+  const [restoreCheckLocal, setRestoreCheckLocal] = useState(JSON
+    .parse(localStorage.getItem('favoriteRecipes')) || []);
 
   return (
     <RecipesContext.Provider
@@ -31,6 +35,10 @@ function Provider({ children }) {
         setAllDrinks,
         inProgressRecipe,
         setInProgressRecipe,
+        checkLocal,
+        setCheckLocal,
+        restoreCheckLocal,
+        setRestoreCheckLocal,
       } }
     >
       {children}
