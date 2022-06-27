@@ -31,12 +31,14 @@ function Profile() {
       <Header />
       <p
         data-testid="profile-email"
+        className="email-profile"
       >
         { userEmail }
       </p>
-      <section>
+      <section className="btn-profile">
         <button
           type="button"
+          className="cat-btns"
           data-testid="profile-done-btn"
           onClick={ () => history.push('/done-recipes') }
         >
@@ -44,6 +46,7 @@ function Profile() {
         </button>
         <button
           type="button"
+          className="cat-btns"
           data-testid="profile-favorite-btn"
           onClick={ () => history.push('/favorite-recipes') }
         >
@@ -51,6 +54,7 @@ function Profile() {
         </button>
         <button
           type="button"
+          className="cat-btns"
           data-testid="profile-logout-btn"
           onClick={ handleLogout }
         >

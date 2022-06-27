@@ -10,6 +10,8 @@
   left: 0;
   position: fixed;
   width: 100%;
+  background-color: orange;
+  border-top: 2px solid black;
 }
 
 .carousel-card {
@@ -18,9 +20,27 @@
   overflow-x: scroll;
 }
 
-.card {
+.card-display {
   margin: 10px;
-  width: 160px;
+  width: 150px;
+  height: 250px;
+  color: black;
+  background-color: #FCE7D0;
+  margin-bottom: 40px;
+  border-radius: 2px;
+  box-shadow:  5px 5px 10px #ba8643, -5px -5px 10px #e4a451;
+  text-size-adjust: auto;
+}
+
+.card-body {
+  text-align: center;
+  margin: 0 2px;
+  text-size-adjust: auto;
+}
+
+.card-father {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .btn-start-recipe {
@@ -31,4 +51,212 @@
 
 .done-ingredient {
   text-decoration: line-through;
+}
+
+body {
+  background-image: url('./styles/cocina.gif');
+  background-repeat: repeat;
+  margin: 0;
+}
+
+.login-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  margin: 10%;
+}
+
+.login-form {
+  padding: 30px;
+  border-radius: 10px;
+  background: #F0A250;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  margin-left: 0;
+  align-self: center;
+}
+
+.cat-btns {
+  display: inline-block;
+  outline: 0;
+  appearance: none;
+  padding: 0px 12px;
+  text-decoration: none;
+  cursor: pointer;
+  background-color: rgb(255, 175, 1);
+  border: 1px solid rgb(0, 0, 0);
+  box-shadow: rgb(6 22 33 / 30%) 0px 1px 2px;
+  color: rgb(0, 0, 0);
+  font-size: 14px;
+  font-weight: 400;
+  height: 36px;
+  transition: all 150ms ease-in-out 0s;
+}
+
+.cat-btns:hover {
+  color: rgb(255, 255, 255);
+  background-color: rgb(0, 0, 0);
+  border: 1px solid rgb(0, 0, 0);
+}
+
+.login-btn {
+  align-content: center;
+  outline: 0;
+  grid-gap: 8px;
+  align-items: center;
+  background: 0 0;
+  border: 1px solid #000;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  flex-shrink: 0;
+  font-size: 16px;
+  gap: 8px;
+  justify-content: center;
+  line-height: 1.5;
+  overflow: hidden;
+  padding: 15px 25px;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  transition: all .14s ease-out;
+  white-space: nowrap;
+}
+
+.login-btn:hover {
+  box-shadow: 4px 4px 0 #000;
+  transform: translate(-4px,-4px);
+}
+
+.login-btn:focus-visible{
+  outline-offset: 1px;
+}
+
+.header {
+  background-color: orange;
+  border-bottom: 2px solid black;
+}
+
+.cat-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.email-profile {
+  margin: -35px 0 40% 0;
+  font-size: 4vw;
+  text-align: center;
+  position: absolute;
+  left: 70px;
+}
+
+.btn-profile {
+  margin-top: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.explore-btns {
+  margin: 50% 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.ing-main {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 5% 0;
+  border: none;
+}
+
+.ing-btns {
+  background-color: transparent;
+  width: 170px;
+  height: 240px;
+  outline: 0;
+  text-align: center;
+  cursor: pointer;
+  background-color: #FCE7D0;
+  color: rgb(50, 49, 48);
+  font-size: 14px;
+  font-weight: 400;
+  box-sizing: border-box;
+}
+
+.ing-btns:hover {
+  background-color: rgb(243, 242, 241);
+  color: rgb(32, 31, 30);
+}
+
+.form-select {
+  margin-left: 35%;
+}
+
+.details-img {
+  width: 100%;
+}
+
+.details-name {
+  display: flex;
+  justify-content: space-between;
+}
+
+.details-btns {
+  display: flex;
+  justify-content: space-between;
+}
+
+.details-back {
+  background-color: #FCE8D0;
+}
+
+.continue-btns {
+  display: inline-block;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  outline: 0;
+  appearance: none;
+  padding: 0px 18px;
+  text-decoration: none;
+  cursor: pointer;
+  background-color: rgb(255, 175, 1);
+  border: 1px solid rgb(0, 0, 0);
+  box-shadow: rgb(6 22 33 / 30%) 0px 1px 2px;
+  color: rgb(0, 0, 0);
+  font-size: 14px;
+  font-weight: 400;
+  height: 36px;
+  width: 100%;
+  transition: all 150ms ease-in-out 0s;
+  margin: 20px 0;
+}
+  
+.continue-btns:hover {
+  color: rgb(255, 255, 255);
+  background-color: rgb(0, 0, 0);
+  border: 1px solid rgb(0, 0, 0);
+}
+
+.list-ing {
+  display: flex;
+  flex-direction: column;
+}
+
+.final-display {
+  margin: 10px;
+  width: 250px;
+  height: 500px;
+  color: black;
+  background-color: #FCE7D0;
+  margin-bottom: 40px;
+  border-radius: 2px;
+  box-shadow:  5px 5px 10px #ba8643, -5px -5px 10px #e4a451;
+  text-size-adjust: auto;
 }

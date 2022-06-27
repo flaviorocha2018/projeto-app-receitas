@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/Context';
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import e11even from '../styles/e11even.png';
 
 function Login() {
   const { email, setEmail } = useContext(RecipesContext);
@@ -37,8 +38,11 @@ function Login() {
   }, [email, password]);
 
   return (
-    <section className="">
-      <form>
+    <section className="login-section">
+      <div className="title">
+        <img src={ e11even } alt="Title" width="300px" />
+      </div>
+      <form className="login-form">
         <div className="form-outline mb-4">
           <label className="form-label" htmlFor="email-input">
             Email address
@@ -47,6 +51,7 @@ function Login() {
               id="email-input"
               className="form-control"
               data-testid="email-input"
+              autoComplete="off"
               name="email"
               value={ email }
               onChange={ handleChange }
@@ -69,7 +74,7 @@ function Login() {
         </div>
         <button
           type="button"
-          className="btn btn-primary btn-block mb-4"
+          className="login-btn"
           data-testid="login-submit-btn"
           disabled={ enterBtn.enterBtn }
           onClick={ () => handleClick() }

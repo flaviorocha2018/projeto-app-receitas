@@ -20,7 +20,7 @@ function CardsDone(props) {
 
   return (
     <div
-      className="card"
+      className="final-display"
     >
       <Link to={ `${item.type}s/${item.id}` }>
         <img

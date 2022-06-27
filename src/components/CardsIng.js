@@ -22,6 +22,7 @@ function CardsIng(props) {
     >
       <button
         type="button"
+        className="ing-btns"
         onClick={ clickCardIng }
       >
         <img

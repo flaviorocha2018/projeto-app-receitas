@@ -124,22 +124,25 @@ function InProgress() {
   };
 
   return (
-    <section className="">
+    <section className="details-back">
       <img
         src={ details.image }
         alt={ details.name }
         data-testid="recipe-photo"
+        className="details-img"
       />
-      <div>
+      <div className="details-name">
         <h2
           data-testid="recipe-title"
         >
           { details.name }
         </h2>
-        <div>
+        <div className="details-btns">
           <Share />
           <Favorite />
         </div>
+      </div>
+      <div>
         <h4
           data-testid="recipe-category"
         >
@@ -147,7 +150,7 @@ function InProgress() {
         </h4>
       </div>
       <div>
-        <div>
+        <div className="list-ing">
           { ingredients.map((item, index) => (
             <List
               key={ index }
@@ -171,7 +174,7 @@ function InProgress() {
       <button
         type="button"
         data-testid="finish-recipe-btn"
-        className="finish-recipe-btn"
+        className="continue-btns"
         onClick={ saveRecipeDone }
         disabled={ btnDisabled }
       >

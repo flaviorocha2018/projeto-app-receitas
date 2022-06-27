@@ -6,9 +6,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function Buttons(props) {
   const { filterRecipes } = props;
   return (
-    <div>
+    <div className="cat-buttons">
       <button
         type="button"
+        className="cat-btns"
         data-testid="filter-by-all-btn"
         value="all"
         onClick={ filterRecipes }
@@ -17,6 +18,7 @@ function Buttons(props) {
       </button>
       <button
         type="button"
+        className="cat-btns"
         data-testid="filter-by-food-btn"
         value="food"
         onClick={ filterRecipes }
@@ -25,6 +27,7 @@ function Buttons(props) {
       </button>
       <button
         type="button"
+        className="cat-btns"
         data-testid="filter-by-drink-btn"
         value="drink"
         onClick={ filterRecipes }

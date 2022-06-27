@@ -1,13 +1,12 @@
 import React from 'react';
 import '../App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import PropTypes from 'prop-types';
 
 function Cards(props) {
   const { image, text, index } = props;
   return (
     <div
-      className="card"
+      className="card-display"
       data-testid={ `${index}-recipe-card` }
     >
       <img
