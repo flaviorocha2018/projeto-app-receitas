@@ -88,6 +88,7 @@ function SearchBar() {
             className="form-control"
             data-testid="search-input"
             name="search"
+            autoComplete="off"
             placeholder="Search Recipe"
             value={ searchInput.searchInput }
             onChange={ handleSearch }
@@ -133,6 +134,7 @@ function SearchBar() {
         </div>
         <button
           type="button"
+          className="cat-btns"
           data-testid="exec-search-btn"
           onClick={ handleSearchBtn }
         >

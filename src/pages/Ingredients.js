@@ -34,9 +34,9 @@ function Ingredients() {
   }, []);
 
   return (
-    <section className="">
+    <section>
       <Header />
-      <div>
+      <div className="ing-main">
         { ingredients.map((item, index) => (
           <CardsIng
             key={ index }

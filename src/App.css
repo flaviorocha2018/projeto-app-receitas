@@ -4,6 +4,8 @@
 }
 
 .footer-icons {
+  background-color: orange;
+  border-top: 2px solid black;
   bottom: 0;
   display: flex;
   justify-content: space-between;
@@ -18,9 +20,26 @@
   overflow-x: scroll;
 }
 
-.card {
+.card-display {
+  background-color: #fce7d0;
+  border-radius: 2px;
+  box-shadow: 5px 5px 10px #ba8643 , -5px -5px 10px #e4a451;
+  color: black;
+  height: 250px;
   margin: 10px;
-  width: 160px;
+  margin-bottom: 40px;
+  width: 150px;
+}
+
+.card-body {
+  margin: 0 2px;
+  text-align: center;
+  text-size-adjust: auto;
+}
+
+.card-father {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .btn-start-recipe {
@@ -31,4 +50,210 @@
 
 .done-ingredient {
   text-decoration: line-through;
+}
+
+body {
+  background-image: url('./styles/cocina.gif');
+  background-repeat: repeat;
+  margin: 0;
+}
+
+.login-section {
+  align-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 10%;
+}
+
+.login-form {
+  align-items: center;
+  background: #f0a250;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 30px;
+}
+
+.title {
+  align-self: center;
+  margin-left: 0;
+}
+
+.cat-btns {
+  appearance: none;
+  background-color: rgb(255, 175, 1);
+  border: 1px solid black;
+  box-shadow: rgb(6 22 33 / 30%) 0 1px 2px;
+  color: black;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 400;
+  height: 36px;
+  outline: 0;
+  padding: 0 12px;
+  text-decoration: none;
+  transition: all 150ms ease-in-out 0s;
+}
+
+.cat-btns:hover {
+  background-color: black;
+  border: 1px solid black;
+  color: white;
+}
+
+.login-btn {
+  align-content: center;
+  align-items: center;
+  background: 0 0;
+  border: 1px solid black;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  flex-shrink: 0;
+  font-size: 16px;
+  gap: 8px;
+  grid-gap: 8px;
+  justify-content: center;
+  line-height: 1.5;
+  outline: 0;
+  overflow: hidden;
+  padding: 15px 25px;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  transition: all 0.14s ease-out;
+  white-space: nowrap;
+}
+
+.login-btn:hover {
+  box-shadow: 4px 4px 0 black;
+  transform: translate(-4px, -4px);
+}
+
+.login-btn:focus-visible {
+  outline-offset: 1px;
+}
+
+.header {
+  background-color: orange;
+  border-bottom: 2px solid black;
+}
+
+.cat-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.email-profile {
+  font-size: 4vw;
+  left: 70px;
+  margin: -35px 0 40%;
+  position: absolute;
+  text-align: center;
+}
+
+.btn-profile {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50%;
+}
+
+.explore-btns {
+  display: flex;
+  flex-direction: column;
+  margin: 50% 0;
+}
+
+.ing-main {
+  border: none;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 5%;
+}
+
+.ing-btns {
+  background-color: #fce7d0;
+  box-sizing: border-box;
+  color: rgb(50, 49, 48);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 400;
+  height: 240px;
+  outline: 0;
+  text-align: center;
+  width: 170px;
+}
+
+.ing-btns:hover {
+  background-color: rgb(243, 242, 241);
+  color: rgb(32, 31, 30);
+}
+
+.form-select {
+  margin-left: 35%;
+}
+
+.details-img {
+  width: 100%;
+}
+
+.details-name {
+  display: flex;
+  justify-content: space-between;
+}
+
+.details-btns {
+  display: flex;
+  justify-content: space-between;
+}
+
+.details-back {
+  background-color: #fce7d0;
+}
+
+.continue-btns {
+  appearance: none;
+  background-color: rgb(255, 175, 1);
+  border: 1px solid black;
+  bottom: 0;
+  box-shadow: rgb(6 22 33 / 30%) 0 1px 2px;
+  color: black;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 400;
+  height: 36px;
+  left: 0;
+  margin: 20px 0;
+  outline: 0;
+  padding: 0 18px;
+  position: fixed;
+  text-decoration: none;
+  transition: all 150ms ease-in-out 0s;
+  width: 100%;
+}
+
+.continue-btns:hover {
+  background-color: black;
+  border: 1px solid black;
+  color: white;
+}
+
+.list-ing {
+  display: flex;
+  flex-direction: column;
+}
+
+.final-display {
+  background-color: #fce7d0;
+  border-radius: 2px;
+  box-shadow: 5px 5px 10px #ba8643 , -5px -5px 10px #e4a451;
+  color: black;
+  height: 500px;
+  margin: 10px;
+  margin-bottom: 40px;
+  width: 250px;
 }

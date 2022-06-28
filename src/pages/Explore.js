@@ -36,32 +36,37 @@ function Explore() {
   };
 
   return (
-    <section className="">
+    <section>
       <Header />
-      <button
-        type="button"
-        data-testid="explore-by-ingredient"
-        onClick={ redirecIngredient }
-      >
-        By Ingredient
-      </button>
-      { title.title === pageTitle
-        && (
-          <button
-            type="button"
-            data-testid="explore-by-nationality"
-            onClick={ redirecNationality }
-          >
-            By Nationality
-          </button>
-        )}
-      <button
-        type="button"
-        data-testid="explore-surprise"
-        onClick={ redirectUser }
-      >
-        Surprise me!
-      </button>
+      <div className="explore-btns">
+        <button
+          type="button"
+          className="cat-btns"
+          data-testid="explore-by-ingredient"
+          onClick={ redirecIngredient }
+        >
+          By Ingredient
+        </button>
+        { title.title === pageTitle
+          && (
+            <button
+              type="button"
+              className="cat-btns"
+              data-testid="explore-by-nationality"
+              onClick={ redirecNationality }
+            >
+              By Nationality
+            </button>
+          )}
+        <button
+          type="button"
+          className="cat-btns"
+          data-testid="explore-surprise"
+          onClick={ redirectUser }
+        >
+          Surprise me!
+        </button>
+      </div>
       <Footer />
     </section>
   );

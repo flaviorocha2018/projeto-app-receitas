@@ -7,7 +7,7 @@ function CardsRec(props) {
   const { image, text, index } = props;
   return (
     <div
-      className="card"
+      className="card-display"
       data-testid={ `${index}-recomendation-card` }
     >
       <img

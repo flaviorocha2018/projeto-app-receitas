@@ -81,8 +81,9 @@ function Drinks() {
   return (
     <section className="">
       <Header />
-      <div>
+      <div className="cat-buttons">
         <button
+          className="cat-btns"
           type="button"
           data-testid="All-category-filter"
           onClick={ selectAllCategorys }
@@ -92,6 +93,7 @@ function Drinks() {
         { catDrinks.map((cat, index) => (
           <button
             type="button"
+            className="cat-btns"
             key={ index }
             value={ cat.strCategory }
             data-testid={ `${cat.strCategory}-category-filter` }
@@ -101,15 +103,17 @@ function Drinks() {
           </button>
         ))}
       </div>
-      { selectDrinks.map((drink, index) => (
-        <Link to={ `/drinks/${drink.idDrink}` } key={ index }>
-          <Cards
-            index={ index }
-            image={ drink.strDrinkThumb }
-            text={ drink.strDrink }
-          />
-        </Link>
-      ))}
+      <div className="card-father">
+        { selectDrinks.map((drink, index) => (
+          <Link to={ `/drinks/${drink.idDrink}` } key={ index }>
+            <Cards
+              index={ index }
+              image={ drink.strDrinkThumb }
+              text={ drink.strDrink }
+            />
+          </Link>
+        ))}
+      </div>
       <Footer />
     </section>
   );

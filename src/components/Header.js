@@ -16,7 +16,7 @@ function Header() {
   };
 
   return (
-    <header className="">
+    <header className="header">
       <div className="header-icons">
         <Link to="/profile">
           <img

@@ -79,22 +79,25 @@ function DetailsDrinks() {
   }, [drinkDetails]);
 
   return (
-    <section className="">
+    <section className="details-back">
       <img
         src={ drinkDetails.strDrinkThumb }
         alt={ drinkDetails.strDrink }
         data-testid="recipe-photo"
+        className="details-img"
       />
-      <div>
+      <div className="details-name">
         <h2
           data-testid="recipe-title"
         >
           { drinkDetails.strDrink }
         </h2>
-        <div>
+        <div className="details-btns">
           <Share />
           <Favorite />
         </div>
+      </div>
+      <div>
         <h4
           data-testid="recipe-category"
         >
@@ -141,7 +144,7 @@ function DetailsDrinks() {
           <button
             type="button"
             data-testid="start-recipe-btn"
-            className="btn-start-recipe"
+            className="continue-btns"
             onClick={ () => history.push(`${history.location.pathname}/in-progress`) }
           >
             { continueBtn ? 'Continue Recipe' : 'Start Recipe' }

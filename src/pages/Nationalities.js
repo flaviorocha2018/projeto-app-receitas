@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import RecipesContext from '../context/Context';
 import '../App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Cards from '../components/Cards';
@@ -71,15 +70,17 @@ function Nationalities() {
           </option>
         ))}
       </select>
-      { selectMeals.map((meal, index) => (
-        <Link to={ `/foods/${meal.idMeal}` } key={ index }>
-          <Cards
-            index={ index }
-            image={ meal.strMealThumb }
-            text={ meal.strMeal }
-          />
-        </Link>
-      ))}
+      <div className="card-father">
+        { selectMeals.map((meal, index) => (
+          <Link to={ `/foods/${meal.idMeal}` } key={ index }>
+            <Cards
+              index={ index }
+              image={ meal.strMealThumb }
+              text={ meal.strMeal }
+            />
+          </Link>
+        ))}
+      </div>
       <Footer />
     </section>
   );
