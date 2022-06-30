@@ -26,12 +26,10 @@ function List(props) {
 
   const checkbox = ({ target }) => {
     setItemChecked(!itemChecked);
-
     setItemDone(!itemDone);
-
     const data = inProgressRecipe[types][id];
 
-    if (data?.includes(target.value)) { // remove ingrediente selecionadp dp localStorage
+    if (data && data.includes(target.value)) { // remove ingrediente selecionadp dp localStorage
       itemsLocal[types][id] = data.filter((item) => item !== target.value);
     } else if (data) {
       itemsLocal[types][id] = [...inProgressRecipe[types][id], name];

@@ -83,10 +83,6 @@ function InProgress() {
     });
   };
 
-  const checkAll = () => {
-    setBtnDisabled(false);
-  };
-
   useEffect(() => {
     const info = history.location.pathname.split('/');
     setType(info[1]);
@@ -98,6 +94,10 @@ function InProgress() {
     getIngredients();
     getMeasures();
   }, [allDetails]);
+
+  const checkAll = () => {
+    setBtnDisabled(false);
+  };
 
   const deleteFromInProgress = () => {
     const types = details.type === 'food' ? 'meals' : 'cocktails';
