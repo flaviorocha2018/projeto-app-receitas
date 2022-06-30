@@ -67,7 +67,7 @@ function CardsDone(props) {
           id={ item.id }
           type={ `${item.type}s` }
         />
-        { tags.map((tag) => (
+        { tags?.map((tag) => (
           <h6
             key={ tag }
             className=""

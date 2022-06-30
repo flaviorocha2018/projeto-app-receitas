@@ -15,7 +15,6 @@ function InProgress() {
   const [allDetails, setAllDetails] = useState('');
   const [ingredients, setIngredients] = useState([]);
   const [measures, setMeasures] = useState([]);
-  const [counter, setCounter] = useState(0);
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [checkLocal] = useState(JSON
     .parse(localStorage.getItem('doneRecipes')) || []);
@@ -84,6 +83,10 @@ function InProgress() {
     });
   };
 
+  const checkAll = () => {
+    setBtnDisabled(false);
+  };
+
   useEffect(() => {
     const info = history.location.pathname.split('/');
     setType(info[1]);
@@ -96,16 +99,8 @@ function InProgress() {
     getMeasures();
   }, [allDetails]);
 
-  const checkAll = () => {
-    setCounter(counter + 1);
-  };
-
-  useEffect(() => {
-    if (counter !== 0 && counter === ingredients.length) setBtnDisabled(false);
-  }, [counter]);
-
   const deleteFromInProgress = () => {
-    const types = details.type === 'foods' ? 'meals' : 'cocktails';
+    const types = details.type === 'food' ? 'meals' : 'cocktails';
     delete inProgressRecipe[types][details.id];
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipe));
     setInProgressRecipe(inProgressRecipe);
@@ -158,6 +153,7 @@ function InProgress() {
               index={ index }
               measures={ measures }
               checkAll={ checkAll }
+              ingredients={ ingredients?.length }
               type={ type }
               id={ details.id }
             />

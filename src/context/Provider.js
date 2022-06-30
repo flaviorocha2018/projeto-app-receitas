@@ -10,7 +10,8 @@ function Provider({ children }) {
   const [searchParam, setSearchParam] = useState({ searchParam: '' });
   const [allMeals, setAllMeals] = useState([]);
   const [allDrinks, setAllDrinks] = useState([]);
-  const [inProgressRecipe, setInProgressRecipe] = useState({ cocktails: {}, meals: {} });
+  const [inProgressRecipe, setInProgressRecipe] = useState(JSON
+    .parse(localStorage.getItem('inProgressRecipes')) || { cocktails: {}, meals: {} });
   const [checkLocal, setCheckLocal] = useState(JSON
     .parse(localStorage.getItem('favoriteRecipes')) || []);
   const [restoreCheckLocal, setRestoreCheckLocal] = useState(JSON

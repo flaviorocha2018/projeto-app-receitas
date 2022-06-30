@@ -9,12 +9,13 @@ function List(props) {
   const [itemDone, setItemDone] = useState(false);
   const [itemChecked, setItemChecked] = useState(true);
   const [itemsLocal] = useState(JSON
-    .parse(localStorage.getItem('inProgressRecipes')) || { cocktails: {}, meals: {} });
-  const { name, index, measures, checkAll, type, id } = props;
+    .parse(localStorage.getItem('inProgressRecipes')) || inProgressRecipe);
+  const { name, index, measures, checkAll, type, id, ingredients } = props;
   const types = type === 'foods' ? 'meals' : 'cocktails';
 
   useEffect(() => {
     const itemOnStorage = itemsLocal[types][id];
+    console.log(inProgressRecipe);
     if (itemOnStorage && itemOnStorage.includes(name)) {
       setInProgressRecipe(itemsLocal);
       setItemDone(true);
@@ -23,15 +24,23 @@ function List(props) {
     }
   }, []);
 
-  const checkbox = () => {
+  const checkbox = ({ target }) => {
     setItemChecked(!itemChecked);
+
     setItemDone(!itemDone);
-    if (inProgressRecipe[types][id]) {
+
+    const data = inProgressRecipe[types][id];
+
+    if (data?.includes(target.value)) { // remove ingrediente selecionadp dp localStorage
+      itemsLocal[types][id] = data.filter((item) => item !== target.value);
+    } else if (data) {
       itemsLocal[types][id] = [...inProgressRecipe[types][id], name];
     } else itemsLocal[types][id] = [name];
+
     localStorage.setItem('inProgressRecipes', JSON.stringify(itemsLocal));
     setInProgressRecipe(itemsLocal);
-    checkAll();
+
+    if (itemsLocal[types][id].length === ingredients) checkAll(); // resolve bug da quantidade de ingredientes selecionados
   };
 
   return (
@@ -46,6 +55,7 @@ function List(props) {
         value={ name }
         onChange={ checkbox }
         checked={ itemChecked }
+        // checked={ checked }
       />
       {`${name} - ${measures[index]}`}
     </label>
@@ -59,6 +69,7 @@ List.propTypes = {
   checkAll: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
+  ingredients: PropTypes.number.isRequired,
 };
 
 export default List;
