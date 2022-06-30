@@ -22,6 +22,11 @@ function Cards(props) {
         >
           { text }
         </h5>
+        <p
+          className="card-title-hide"
+        >
+          { text }
+        </p>
       </div>
     </div>
   );
