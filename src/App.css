@@ -44,9 +44,9 @@
 .card-title:hover + .card-title-hide {
   background-color: rgb(204, 204, 204);
   display: block;
-  margin-top: -15px; 
-  position: absolulte;
   font-size: smaller;
+  margin-top: -15px;
+  position: absolulte;
 }
 
 .card-body {
