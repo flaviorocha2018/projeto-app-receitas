@@ -15,7 +15,6 @@ function List(props) {
 
   useEffect(() => {
     const itemOnStorage = itemsLocal[types][id];
-    console.log(inProgressRecipe);
     if (itemOnStorage && itemOnStorage.includes(name)) {
       setInProgressRecipe(itemsLocal);
       setItemDone(true);
