@@ -31,6 +31,24 @@
   width: 150px;
 }
 
+.card-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card-title-hide {
+  display: none;
+}
+
+.card-title:hover + .card-title-hide {
+  background-color: rgb(204, 204, 204);
+  display: block;
+  margin-top: -15px; 
+  position: absolulte;
+  font-size: smaller;
+}
+
 .card-body {
   margin: 0 2px;
   text-align: center;
