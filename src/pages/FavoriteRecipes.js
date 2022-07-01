@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from '../components/Header';
 import Buttons from '../components/Buttons';
 import CardsFavorite from '../components/CardsFavorite';
+import ButtonHome from '../components/ButtonHome';
 
 function FavoriteRecipes() {
   const {
@@ -51,6 +52,7 @@ function FavoriteRecipes() {
           item={ item }
         />
       ))}
+      <ButtonHome />
     </section>
   );
 }

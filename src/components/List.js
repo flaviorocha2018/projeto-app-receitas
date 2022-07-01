@@ -10,17 +10,24 @@ function List(props) {
   const [itemChecked, setItemChecked] = useState(true);
   const [itemsLocal] = useState(JSON
     .parse(localStorage.getItem('inProgressRecipes')) || inProgressRecipe);
-  const { name, index, measures, checkAll, type, id, ingredients } = props;
+  const { name, index, measures, checkAll, checkAll2, type, id, ingredients } = props;
   const types = type === 'foods' ? 'meals' : 'cocktails';
+
+  const check = () => {
+    if ((itemsLocal[types][id] || []).length === ingredients) return checkAll();
+    return checkAll2();
+  };
 
   useEffect(() => {
     const itemOnStorage = itemsLocal[types][id];
-    if (itemOnStorage && itemOnStorage.includes(name)) {
+    if (itemOnStorage && itemOnStorage.includes(`${name} - ${measures[index]}`)) {
       setInProgressRecipe(itemsLocal);
       setItemDone(true);
     } else {
       setItemChecked(false);
     }
+
+    check();
   }, []);
 
   const checkbox = ({ target }) => {
@@ -31,28 +38,28 @@ function List(props) {
     if ((data || []).includes(target.value)) { // remove ingrediente selecionadp dp localStorage
       itemsLocal[types][id] = data.filter((item) => item !== target.value);
     } else if (data) {
-      itemsLocal[types][id] = [...inProgressRecipe[types][id], name];
-    } else itemsLocal[types][id] = [name];
+      itemsLocal[types][id] = [...inProgressRecipe[types][id],
+        target.value];
+    } else itemsLocal[types][id] = [target.value];
 
     localStorage.setItem('inProgressRecipes', JSON.stringify(itemsLocal));
     setInProgressRecipe(itemsLocal);
 
-    if (itemsLocal[types][id].length === ingredients) checkAll(); // resolve bug da quantidade de ingredientes selecionados
+    check(); // resolve bug da quantidade de ingredientes selecionados
   };
 
   return (
     <label
-      htmlFor={ name }
+      htmlFor={ `${name} - ${measures[index]}` }
       data-testid={ `${index}-ingredient-step` }
       className={ itemDone ? 'done-ingredient' : '' }
     >
       <input
         type="checkbox"
-        id={ name }
-        value={ name }
+        id={ `${name} - ${measures[index]}` }
+        value={ `${name} - ${measures[index]}` }
         onChange={ checkbox }
         checked={ itemChecked }
-        // checked={ checked }
       />
       {`${name} - ${measures[index]}`}
     </label>
@@ -64,6 +71,7 @@ List.propTypes = {
   measures: PropTypes.arrayOf(PropTypes.any).isRequired,
   index: PropTypes.number.isRequired,
   checkAll: PropTypes.func.isRequired,
+  checkAll2: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   ingredients: PropTypes.number.isRequired,

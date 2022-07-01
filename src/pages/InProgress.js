@@ -7,6 +7,7 @@ import { detailsFoods, detailsDrinks } from '../services/functions';
 import Share from '../components/Share';
 import Favorite from '../components/Favorite';
 import List from '../components/List';
+import ButtonHome from '../components/ButtonHome';
 
 function InProgress() {
   const { inProgressRecipe, setInProgressRecipe } = useContext(RecipesContext);
@@ -99,6 +100,10 @@ function InProgress() {
     setBtnDisabled(false);
   };
 
+  const checkAll2 = () => {
+    setBtnDisabled(true);
+  };
+
   const deleteFromInProgress = () => {
     const types = details.type === 'food' ? 'meals' : 'cocktails';
     delete inProgressRecipe[types][details.id];
@@ -153,6 +158,7 @@ function InProgress() {
               index={ index }
               measures={ measures }
               checkAll={ checkAll }
+              checkAll2={ checkAll2 }
               ingredients={ ingredients?.length }
               type={ type }
               id={ details.id }
@@ -167,15 +173,18 @@ function InProgress() {
           { allDetails.strInstructions }
         </p>
       </div>
-      <button
-        type="button"
-        data-testid="finish-recipe-btn"
-        className="continue-btns"
-        onClick={ saveRecipeDone }
-        disabled={ btnDisabled }
-      >
-        Finish Recipe
-      </button>
+      <div className="end-button">
+        <ButtonHome />
+        <button
+          type="button"
+          data-testid="finish-recipe-btn"
+          className="continue-btns"
+          onClick={ saveRecipeDone }
+          disabled={ btnDisabled }
+        >
+          Finish Recipe
+        </button>
+      </div>
     </section>
   );
 }

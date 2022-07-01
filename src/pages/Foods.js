@@ -20,6 +20,7 @@ function Foods() {
     allMeals,
     setAllMeals,
     searchInput,
+    setSearchInput,
   } = useContext(RecipesContext);
   const [selectMeals, setSelectMeals] = useState([]);
   const [selectMealsRestore, setSelectMealsRestore] = useState([]);
@@ -38,16 +39,17 @@ function Foods() {
     setSelectMealsRestore(result);
   };
 
+  const apiMeals = async () => {
+    if (searchInput.searchInput !== '') searchIngredients();
+    else getAllMeals();
+    const LIMIT = 5;
+    const resultCatMeals = await getMealsCat();
+    setCatMeals(resultCatMeals.slice(0, LIMIT));
+  };
+
   useEffect(() => {
     setTitle({ title: 'Foods' });
     setIconShow({ iconShow: true });
-    async function apiMeals() {
-      if (searchInput.searchInput !== '') searchIngredients();
-      else getAllMeals();
-      const LIMIT = 5;
-      const resultCatMeals = await getMealsCat();
-      setCatMeals(resultCatMeals.slice(0, LIMIT));
-    }
     apiMeals();
   }, []);
 
@@ -58,8 +60,9 @@ function Foods() {
 
   useEffect(() => {
     const LIMIT = 12;
-    if (allMeals.length === 1 && categorySelected.length === 0) redirectToDetails();
-    else setSelectMeals(allMeals.slice(0, LIMIT));
+    if ((allMeals || []).length === 1
+      && categorySelected.length === 0) redirectToDetails();
+    else setSelectMeals((allMeals || []).slice(0, LIMIT));
   }, [allMeals]);
 
   const selectCategorys = async ({ target }) => {
@@ -73,9 +76,10 @@ function Foods() {
     }
   };
 
-  const selectAllCategorys = async () => {
-    setAllMeals(selectMealsRestore);
+  const selectAllCategorys = () => {
+    getAllMeals();
     setCategorySelected('');
+    setSearchInput({ searchInput: '' });
   };
 
   return (
