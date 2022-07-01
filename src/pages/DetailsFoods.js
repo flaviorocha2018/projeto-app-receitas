@@ -6,6 +6,7 @@ import { detailsFoods, getDrinks } from '../services/functions';
 import CardsRec from '../components/CardsRec';
 import Share from '../components/Share';
 import Favorite from '../components/Favorite';
+import ButtonHome from '../components/ButtonHome';
 
 function DetailsFoods() {
   const [foodDetails, setFoodDetails] = useState('');
@@ -154,17 +155,20 @@ function DetailsFoods() {
           </Link>
         ))}
       </div>
-      { !startBtn
-        && (
-          <button
-            type="button"
-            data-testid="start-recipe-btn"
-            className="continue-btns"
-            onClick={ () => history.push(`${history.location.pathname}/in-progress`) }
-          >
-            { continueBtn ? 'Continue Recipe' : 'Start Recipe' }
-          </button>
-        )}
+      <div className="end-button">
+        <ButtonHome />
+        { !startBtn
+          && (
+            <button
+              type="button"
+              data-testid="start-recipe-btn"
+              className="continue-btns"
+              onClick={ () => history.push(`${history.location.pathname}/in-progress`) }
+            >
+              { continueBtn ? 'Continue Recipe' : 'Start Recipe' }
+            </button>
+          )}
+      </div>
     </section>
   );
 }

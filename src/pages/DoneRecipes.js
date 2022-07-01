@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from '../components/Header';
 import Buttons from '../components/Buttons';
 import CardsDone from '../components/CardsDone';
+import ButtonHome from '../components/ButtonHome';
 
 function DoneRecipes() {
   const { setTitle, setIconShow } = useContext(RecipesContext);
@@ -39,6 +40,7 @@ function DoneRecipes() {
           item={ item }
         />
       ))}
+      <ButtonHome />
     </section>
   );
 }

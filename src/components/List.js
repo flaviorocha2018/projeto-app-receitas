@@ -10,8 +10,13 @@ function List(props) {
   const [itemChecked, setItemChecked] = useState(true);
   const [itemsLocal] = useState(JSON
     .parse(localStorage.getItem('inProgressRecipes')) || inProgressRecipe);
-  const { name, index, measures, checkAll, type, id, ingredients } = props;
+  const { name, index, measures, checkAll, checkAll2, type, id, ingredients } = props;
   const types = type === 'foods' ? 'meals' : 'cocktails';
+
+  const check = () => {
+    if (itemsLocal[types][id].length === ingredients) checkAll();
+    else checkAll2();
+  };
 
   useEffect(() => {
     const itemOnStorage = itemsLocal[types][id];
@@ -21,6 +26,8 @@ function List(props) {
     } else {
       setItemChecked(false);
     }
+
+    check();
   }, []);
 
   const checkbox = ({ target }) => {
@@ -37,7 +44,7 @@ function List(props) {
     localStorage.setItem('inProgressRecipes', JSON.stringify(itemsLocal));
     setInProgressRecipe(itemsLocal);
 
-    if (itemsLocal[types][id].length === ingredients) checkAll(); // resolve bug da quantidade de ingredientes selecionados
+    check(); // resolve bug da quantidade de ingredientes selecionados
   };
 
   return (
@@ -64,6 +71,7 @@ List.propTypes = {
   measures: PropTypes.arrayOf(PropTypes.any).isRequired,
   index: PropTypes.number.isRequired,
   checkAll: PropTypes.func.isRequired,
+  checkAll2: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   ingredients: PropTypes.number.isRequired,

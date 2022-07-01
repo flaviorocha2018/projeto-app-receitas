@@ -20,6 +20,7 @@ function Drinks() {
     allDrinks,
     setAllDrinks,
     searchInput,
+    setSearchInput,
   } = useContext(RecipesContext);
   const [selectDrinks, setSelectDrinks] = useState([]);
   const [selectDrinksRestore, setSelectDrinksRestore] = useState([]);
@@ -58,8 +59,8 @@ function Drinks() {
 
   useEffect(() => {
     const LIMIT = 12;
-    if (allDrinks.length === 1 && categorySel.length === 0) redirectToDetails();
-    else setSelectDrinks(allDrinks.slice(0, LIMIT));
+    if ((allDrinks || []).length === 1 && categorySel.length === 0) redirectToDetails();
+    else setSelectDrinks((allDrinks || []).slice(0, LIMIT));
   }, [allDrinks]);
 
   const selectCategorys = async ({ target }) => {
@@ -73,9 +74,10 @@ function Drinks() {
     }
   };
 
-  const selectAllCategorys = async () => {
-    setAllDrinks(selectDrinksRestore);
+  const selectAllCategorys = () => {
+    getAllDrinks();
     setCategorySel('');
+    setSearchInput({ searchInput: '' });
   };
 
   return (
