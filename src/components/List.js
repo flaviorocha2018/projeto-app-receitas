@@ -14,8 +14,8 @@ function List(props) {
   const types = type === 'foods' ? 'meals' : 'cocktails';
 
   const check = () => {
-    if (itemsLocal[types][id].length === ingredients) checkAll();
-    else checkAll2();
+    if ((itemsLocal[types][id] || []).length === ingredients) return checkAll();
+    return checkAll2();
   };
 
   useEffect(() => {
