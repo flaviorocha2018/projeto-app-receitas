@@ -20,7 +20,7 @@ function List(props) {
 
   useEffect(() => {
     const itemOnStorage = itemsLocal[types][id];
-    if (itemOnStorage && itemOnStorage.includes(name)) {
+    if (itemOnStorage && itemOnStorage.includes(`${name} - ${measures[index]}`)) {
       setInProgressRecipe(itemsLocal);
       setItemDone(true);
     } else {
@@ -38,8 +38,9 @@ function List(props) {
     if ((data || []).includes(target.value)) { // remove ingrediente selecionadp dp localStorage
       itemsLocal[types][id] = data.filter((item) => item !== target.value);
     } else if (data) {
-      itemsLocal[types][id] = [...inProgressRecipe[types][id], name];
-    } else itemsLocal[types][id] = [name];
+      itemsLocal[types][id] = [...inProgressRecipe[types][id],
+        target.value];
+    } else itemsLocal[types][id] = [target.value];
 
     localStorage.setItem('inProgressRecipes', JSON.stringify(itemsLocal));
     setInProgressRecipe(itemsLocal);
@@ -49,17 +50,16 @@ function List(props) {
 
   return (
     <label
-      htmlFor={ name }
+      htmlFor={ `${name} - ${measures[index]}` }
       data-testid={ `${index}-ingredient-step` }
       className={ itemDone ? 'done-ingredient' : '' }
     >
       <input
         type="checkbox"
-        id={ name }
-        value={ name }
+        id={ `${name} - ${measures[index]}` }
+        value={ `${name} - ${measures[index]}` }
         onChange={ checkbox }
         checked={ itemChecked }
-        // checked={ checked }
       />
       {`${name} - ${measures[index]}`}
     </label>
