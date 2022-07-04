@@ -51,18 +51,21 @@ function Foods() {
     setTitle({ title: 'Foods' });
     setIconShow({ iconShow: true });
     apiMeals();
+    console.log(searchInput);
   }, []);
 
   const redirectToDetails = () => {
     const mealID = allMeals[0].idMeal;
+    setAllMeals(selectMealsRestore);
     history.push(`/foods/${mealID}`);
   };
 
   useEffect(() => {
     const LIMIT = 12;
     if ((allMeals || []).length === 1
-      && categorySelected.length === 0) redirectToDetails();
-    else setSelectMeals((allMeals || []).slice(0, LIMIT));
+      && categorySelected.length === 0) {
+      redirectToDetails();
+    } else setSelectMeals((allMeals || []).slice(0, LIMIT));
   }, [allMeals]);
 
   const selectCategorys = async ({ target }) => {

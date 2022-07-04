@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useState, useContext, useEffect } from 'react';
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link, useHistory } from 'react-router-dom';
+import RecipesContext from '../context/Context';
 import { detailsDrinks, getMeals } from '../services/functions';
 import CardsRec from '../components/CardsRec';
 import Share from '../components/Share';
@@ -9,6 +10,7 @@ import Favorite from '../components/Favorite';
 import ButtonHome from '../components/ButtonHome';
 
 function DetailsDrinks() {
+  const { setSearchInput } = useContext(RecipesContext);
   const [drinkDetails, setDrinkDetails] = useState('');
   const [drinkIngredients, setDrinkIngredients] = useState([]);
   const [drinkMeasures, setDrinkMeasures] = useState([]);
@@ -61,6 +63,7 @@ function DetailsDrinks() {
       const drinkID = (history.location.pathname.replace(/\D/g, ''));
       const resultAPI = await detailsDrinks(drinkID);
       const recomendationsAPI = await getMeals();
+      setSearchInput({ searchInput: '' });
       setDrinkDetails(resultAPI[0]);
       setRecomendations(recomendationsAPI);
     }
