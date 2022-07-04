@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useState, useContext, useEffect } from 'react';
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link, useHistory } from 'react-router-dom';
+import RecipesContext from '../context/Context';
 import { detailsFoods, getDrinks } from '../services/functions';
 import CardsRec from '../components/CardsRec';
 import Share from '../components/Share';
@@ -9,6 +10,7 @@ import Favorite from '../components/Favorite';
 import ButtonHome from '../components/ButtonHome';
 
 function DetailsFoods() {
+  const { setSearchInput } = useContext(RecipesContext);
   const [foodDetails, setFoodDetails] = useState('');
   const [foodIngredients, setFoodIngredients] = useState([]);
   const [foodMeasures, setFoodMeasures] = useState([]);
@@ -68,6 +70,7 @@ function DetailsFoods() {
       const foodID = (history.location.pathname.replace(/\D/g, ''));
       const resultAPI = await detailsFoods(foodID);
       const recomendationsAPI = await getDrinks();
+      setSearchInput({ searchInput: '' });
       setFoodDetails(resultAPI[0]);
       setRecomendationsDrinks(recomendationsAPI);
       fixVideo(resultAPI[0]);

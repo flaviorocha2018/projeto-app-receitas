@@ -54,6 +54,7 @@ function Drinks() {
 
   const redirectToDetails = () => {
     const drinkID = allDrinks[0].idDrink;
+    setAllDrinks(selectDrinksRestore);
     history.push(`/drinks/${drinkID}`);
   };
 
